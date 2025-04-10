@@ -1,0 +1,89 @@
+<div class="concert-detail-container" *ngIf="concert; else loading">
+  <mat-toolbar color="primary">
+    <button mat-icon-button routerLink="/">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+    <span>{{ concert.name }}</span>
+    <span class="spacer"></span>
+    <form [formGroup]="searchForm" class="search-form">
+      <mat-form-field appearance="outline">
+        <input matInput placeholder="Események keresése" formControlName="searchQuery">
+        <mat-icon matSuffix>search</mat-icon>
+      </mat-form-field>
+    </form>
+  </mat-toolbar>
+
+  <mat-card class="concert-header">
+    <mat-card-header>
+      <mat-card-title>{{ concert.name }}</mat-card-title>
+      <mat-card-subtitle>
+        <!--<mat-chip-list>
+          <mat-chip>
+            <mat-icon>calendar_today</mat-icon>
+            {{ concert.date | date:'fullDate' }}
+          </mat-chip>
+          <mat-chip>
+            <mat-icon>location_on</mat-icon>
+            {{ concert.venue }}
+          </mat-chip>
+        </mat-chip-list>
+        //-->
+      </mat-card-subtitle>
+    </mat-card-header>
+    <img mat-card-image [src]="concert.imageUrl" [alt]="concert.name">
+  </mat-card>
+
+  <mat-tab-group [(selectedIndex)]="activeTab">
+    <mat-tab label="Részletek">
+      <mat-card>
+        <mat-card-content>
+          <h3>Az eseményről</h3>
+          <p>{{ concert.description }}</p>
+
+          <h3>Jegytípusok</h3>
+          <app-ticket-type-selector 
+            [concert]="concert"
+            (addToCart)="onTicketSelected($event)">
+          </app-ticket-type-selector>
+
+          <mat-accordion>
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  <mat-icon>info</mat-icon>
+                  Eseményinformációk
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <ul>
+                <li>Kapunyitás: {{ concert.doorsOpen | duration }}</li>
+                <li>Korhatár: {{ concert.ageRestriction }}</li>
+              </ul>
+            </mat-expansion-panel>
+          </mat-accordion>
+        </mat-card-content>
+      </mat-card>
+    </mat-tab>
+  </mat-tab-group>
+
+  <mat-divider></mat-divider>
+
+  <div class="similar-events">
+    <h2>Ajánlott események</h2>
+    <mat-grid-list cols="3" rowHeight="350px">
+      <mat-grid-tile *ngFor="let event of similarEvents">
+        <mat-card class="event-card">
+          <mat-card-content>
+            <!-- Tartalom később -->
+          </mat-card-content>
+          <mat-card-actions>
+            <button mat-raised-button color="primary">Részletek</button>
+          </mat-card-actions>
+        </mat-card>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </div>
+</div>
+
+<ng-template #loading>
+  <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+</ng-template>

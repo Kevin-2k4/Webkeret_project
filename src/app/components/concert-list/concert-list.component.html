@@ -1,0 +1,29 @@
+<div class="concert-list">
+    <h2>Upcoming Concerts</h2>
+    
+    <div class="filters">
+      <input type="text" placeholder="Search concerts...">
+      <select>
+        <option>All Genres</option>
+        <option>Rock</option>
+        <option>Pop</option>
+        <option>Jazz</option>
+      </select>
+    </div>
+    
+
+    <div class="concert-grid">
+      <div *ngFor="let concert of concerts" class="concert-card">
+        <div class="concert-info">
+          <h3><a [routerLink]="['/concert', concert.id]">{{ concert.name }}</a></h3>
+          <p class="date">{{ concert.date | date:'fullDate' }}</p>
+          <p class="venue">{{ concert.venue }}</p>
+          <p class="price">{{ concert.price | currency }}</p>
+          <button class="btn btn-primary" (click)="addToCart(concert)">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="showPopup" class="popup">
+      Hozzáadva a kosárhoz!
+    </div>
+  </div>

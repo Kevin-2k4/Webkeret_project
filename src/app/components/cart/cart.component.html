@@ -1,0 +1,51 @@
+<div class="cart-container">
+  <h2>Kosarad</h2>
+
+  <div *ngIf="cartService.getCartItems().length === 0" class="empty-cart">
+    <p>A kosarad üres</p>
+    <a routerLink="/concerts" class="btn btn-primary">Koncertek böngészése</a>
+  </div>
+
+  <div *ngIf="cartService.getCartItems().length > 0">
+    <div class="cart-items">
+      <div *ngFor="let item of cartService.getCartItems(); let i = index" class="cart-item">
+        <div class="item-image">
+        </div>
+        <div class="item-details">
+          <p class="ticket-type">{{ item.ticketType }} - {{ item.price | currency }}</p>
+
+          <div class="quantity-control">
+            <label>Mennyiség:</label>
+            <input type="number"
+                   [value]="item.quantity"
+                   min="1"
+                   (change)="updateQuantity(i, $event)">
+          </div>
+        </div>
+
+        <div class="item-actions">
+          <button (click)="removeItem(i)" class="btn btn-danger">Eltávolítás</button>
+          <p class="item-total">
+            {{ calculateItemTotal(item.price, item.quantity) | currency }}
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="cart-summary">
+      <h3>Rendelés összegzése</h3>
+      <div class="summary-row">
+        <span>Részösszeg:</span>
+        <span>{{ cartService.getTotalPrice() | currency }}</span>
+      </div>
+      <div class="summary-row">
+        <span>Áfa (10%):</span>
+        <span>{{ (cartService.getTotalPrice() * 0.10) | currency }}</span>
+      </div>
+      <div class="summary-row total">
+        <span>Végösszeg:</span>
+        <span>{{ (cartService.getTotalPrice() * 1.10) | currency }}</span>
+      </div>
+
+      <button routerLink="/checkout" class="btn btn-primary btn-checkout">
+        Tovább a

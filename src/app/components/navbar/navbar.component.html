@@ -1,0 +1,45 @@
+<header class="navbar-container">
+    <nav class="navbar">
+      <div class="navbar-brand">
+        <a routerLink="/" class="logo">
+          <span>ConcertHub</span>
+        </a>
+        <button class="menu-toggle" (click)="toggleMenu()">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+  
+      <div class="navbar-links" [class.active]="isMenuOpen">
+        <ul>
+          <li>
+            <a routerLink="/home" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+              Kezdőlap
+            </a>
+          </li>
+          <li>
+            <a routerLink="/signup" routerLinkActive="active">Regisztráció</a>
+          </li>
+          <li>
+            <a routerLink="/login" routerLinkActive="active">Bejelentkezés</a>
+          </li>
+          <li>
+            <a routerLink="/concerts" routerLinkActive="active">Concerts</a>
+          </li>
+          <li>
+            <a routerLink="/concert-detail" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Concert-leírás</a>
+          </li>
+          
+          <li class="cart-link">
+            <a routerLink="/cart" routerLinkActive="active">
+              <i class="cart-icon"></i>
+              <span class="cart-icon">
+                
+              </span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </header>
