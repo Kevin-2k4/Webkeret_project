@@ -5,7 +5,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatButtonModule } from '@angular/material/button';
 import { Subscription } from 'rxjs';
-import { User } from '../../models/User';
+import { User } from '../../models/user';
 import { Concert } from '../../models/concert';
 import { UserService } from '../../services/user.service';
 import { ConcertService } from '../../services/concert.service';

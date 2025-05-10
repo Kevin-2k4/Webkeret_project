@@ -7,7 +7,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { User } from '../../models/User';
+import { User } from '../../models/user';
 import { AuthService } from '../../services/auth.service';
 
 @Component({

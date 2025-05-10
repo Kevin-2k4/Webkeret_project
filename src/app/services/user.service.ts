@@ -3,7 +3,7 @@ import { Firestore, doc, getDoc, collection, query, where, getDocs, updateDoc } 
 import { AuthService } from './auth.service';
 import { Observable, from, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
-import { User } from '../models/User';
+import { User } from '../models/user';
 import { Concert } from '../models/concert';
 
 @Injectable({
