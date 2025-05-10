@@ -25,12 +25,16 @@ export class CartComponent {
   }
 
   removeItem(index: number): void {
-    if (confirm('Are you sure you want to remove this item?')) {
+    if (confirm('Biztosan törlöd ezt az elemet a kosárból?')) {
       this.cartService.removeItem(index);
     }
   }
 
   calculateItemTotal(price: number, quantity: number): number {
     return price * quantity;
+  }
+
+  checkout(): void {
+    this.cartService.checkout();  
   }
 }

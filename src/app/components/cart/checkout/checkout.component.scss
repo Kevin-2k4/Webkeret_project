@@ -1,0 +1,28 @@
+.checkout-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.cart-item-card {
+  margin-bottom: 1rem;
+}
+
+.item-info p {
+  margin: 0.25rem 0;
+}
+
+.summary {
+  margin-top: 2rem;
+  text-align: center;
+}
+
+.error {
+  color: red;
+  margin-top: 1rem;
+}
+
+.success {
+  text-align: center;
+  margin-top: 2rem;
+}

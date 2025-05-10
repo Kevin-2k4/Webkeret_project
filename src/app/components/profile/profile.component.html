@@ -1,0 +1,100 @@
+<div class="profile-container">
+  @if (isLoading) {
+    <div class="loading-overlay">
+      <mat-spinner diameter="50"></mat-spinner>
+    </div>
+  }
+
+  @if (error && !isLoading) {
+    <div class="error-state">
+      <mat-icon>error_outline</mat-icon>
+      <p>{{ error }}</p>
+      <button mat-raised-button color="primary" (click)="refresh()">
+        <mat-icon>refresh</mat-icon>
+        Újrapróbálás
+      </button>
+    </div>
+  }
+
+  @if (!isLoading && user && !error) {
+    <mat-card class="profile-card">
+      <mat-card-header>
+        <div mat-card-avatar class="profile-avatar">
+          {{ user.name.firstname.charAt(0) }}{{ user.name.lastname.charAt(0) }}
+        </div>
+        <mat-card-title>
+          {{ user.name.firstname }} {{ user.name.lastname }} profilja
+        </mat-card-title>
+        <mat-card-subtitle>{{ user.email }}</mat-card-subtitle>
+      </mat-card-header>
+      <button mat-stroked-button color="warn" (click)="logout()" class="logout-button">
+        <mat-icon>logout</mat-icon>
+        Kilépés
+      </button>
+    </mat-card>
+
+    <section class="stats-section">
+      <h2>Koncert statisztikák</h2>
+      <div class="stats-grid">
+        <mat-card class="stat-card">
+          <mat-card-header>
+            <mat-icon mat-card-avatar>queue_music</mat-icon>
+            <mat-card-title>{{ stats.total }}</mat-card-title>
+            <mat-card-subtitle>Összes koncert</mat-card-subtitle>
+          </mat-card-header>
+        </mat-card>
+
+        <mat-card class="stat-card">
+          <mat-card-header>
+            <mat-icon mat-card-avatar>event_available</mat-icon>
+            <mat-card-title>{{ stats.upcoming }}</mat-card-title>
+            <mat-card-subtitle>Közelgő</mat-card-subtitle>
+          </mat-card-header>
+        </mat-card>
+
+        <mat-card class="stat-card">
+          <mat-card-header>
+            <mat-icon mat-card-avatar>history</mat-icon>
+            <mat-card-title>{{ stats.past }}</mat-card-title>
+            <mat-card-subtitle>Elmúlt</mat-card-subtitle>
+          </mat-card-header>
+        </mat-card>
+      </div>
+    </section>
+
+    <section class="concert-section">
+      <h2>Jegyek</h2>
+      
+      @if (concerts.length > 0) {
+        <div class="concert-grid">
+          @for (concert of concerts; track concert.id) {
+            <mat-card class="concert-card">
+              <img mat-card-image [src]="concert.imageUrl" [alt]="concert.name">
+              <mat-card-content>
+                <h3>{{ concert.name }}</h3>
+                <p>
+                  <mat-icon>event</mat-icon>
+                  {{ concert.date | date:'yyyy. MMMM d.' }}
+                </p>
+                <p>
+                  <mat-icon>place</mat-icon>
+                  {{ concert.venue }}
+                </p>
+                <p class="price">
+                  <mat-icon>attach_money</mat-icon>
+                  {{ concert.price | currency:'HUF':'symbol':'1.0-0' }}
+                </p>
+              </mat-card-content>
+            </mat-card>
+          }
+        </div>
+      }
+      @else {
+        <div class="no-concerts">
+          <mat-icon>event_busy</mat-icon>
+          <p>Nincsenek koncertjegyek</p>
+        </div>
+      }
+    </section>
+  }
+</div>

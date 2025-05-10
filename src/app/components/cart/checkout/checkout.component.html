@@ -1,2 +1,32 @@
-<p>Sikeres vásárlás!</p>
-<p>Kérjük, ellenőrizze az e-mail fiókját a vásárlás részleteivel kapcsolatban.</p>
+<div class="checkout-container" *ngIf="!checkoutSuccess; else successMessage">
+  <h2>Rendelés összegzése</h2>
+
+  <mat-card *ngFor="let item of cartService.getCartItems(); let i = index" class="cart-item-card">
+    <div class="item-info">
+      <p><strong>Koncert ID:</strong> {{ item.concertId }}</p>
+      <p><strong>Jegytípus:</strong> {{ item.ticketType }}</p>
+      <p><strong>Mennyiség:</strong> {{ item.quantity }}</p>
+      <p><strong>Egységár:</strong> {{ item.price | currency:'HUF' }}</p>
+      <p><strong>Összesen:</strong> {{ item.price * item.quantity | currency:'HUF' }}</p>
+    </div>
+  </mat-card>
+
+  <div class="summary">
+    <p><strong>Végösszeg:</strong> {{ cartService.getTotalPrice() | currency:'HUF' }}</p>
+
+    <button mat-raised-button color="primary" (click)="checkout()" [disabled]="isLoading">
+      Vásárlás
+    </button>
+
+    <mat-progress-spinner *ngIf="isLoading" mode="indeterminate" diameter="30"></mat-progress-spinner>
+
+    <p class="error" *ngIf="errorMessage">{{ errorMessage }}</p>
+  </div>
+</div>
+
+<ng-template #successMessage>
+  <div class="success">
+    <h3>Sikeres vásárlás!</h3>
+    <p>Átirányítás a profil oldalra...</p>
+  </div>
+</ng-template>

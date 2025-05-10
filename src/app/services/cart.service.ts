@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { UserService } from './user.service';
 
 export interface CartItem {
   concertId: number;
@@ -16,6 +17,8 @@ export class CartService {
   private cartSubject = new BehaviorSubject<CartItem[]>([]);
 
   cart$ = this.cartSubject.asObservable();
+
+  constructor(private userService: UserService) {}
 
   addToCart(item: CartItem) {
     const existing = this.cartItems.find(i => i.concertId === item.concertId && i.ticketType === item.ticketType);
@@ -48,5 +51,17 @@ export class CartService {
 
   getCartItems(): CartItem[] {
     return this.cartItems;
+  }
+
+  checkout(): Observable<any> {
+    const items = this.cartItems.map(item => ({
+      concertId: item.concertId,
+      ticketType: item.ticketType,
+      quantity: item.quantity
+    }));
+
+    return this.userService.addConcertsToUser(items.map(item => item.concertId.toString())).pipe(
+      tap(() => this.clearCart())
+    );
   }
 }

@@ -1,0 +1,163 @@
+.profile-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+
+  .loading-overlay {
+    display: flex;
+    justify-content: center;
+    padding: 40px;
+  }
+
+  .error-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px;
+    text-align: center;
+    color: #d32f2f;
+
+    mat-icon {
+      font-size: 48px;
+      width: 48px;
+      height: 48px;
+      margin-bottom: 16px;
+    }
+
+    button {
+      margin-top: 16px;
+    }
+  }
+
+  .profile-card {
+    margin-bottom: 24px;
+
+    .profile-avatar {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background-color: #3f51b5;
+      color: white;
+      font-weight: bold;
+      font-size: 20px;
+    }
+  }
+
+  .stats-section {
+    margin-bottom: 32px;
+
+    h2 {
+      color: #3f51b5;
+      margin-bottom: 16px;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 16px;
+    }
+
+    .stat-card {
+      mat-icon {
+        color: #3f51b5;
+        font-size: 32px;
+        width: 32px;
+        height: 32px;
+      }
+
+      mat-card-title {
+        font-size: 28px;
+        margin-bottom: 4px;
+      }
+    }
+  }
+
+  .concert-section {
+    h2 {
+      color: #3f51b5;
+      margin-bottom: 16px;
+    }
+
+    .concert-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+    }
+
+    .concert-card {
+      transition: transform 0.3s ease;
+
+      &:hover {
+        transform: translateY(-5px);
+      }
+
+      img {
+        height: 200px;
+        object-fit: cover;
+      }
+
+      mat-card-content {
+        p {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          margin: 8px 0;
+
+          mat-icon {
+            color: #666;
+          }
+        }
+
+        .price {
+          color: #3f51b5;
+          font-weight: bold;
+          font-size: 1.1em;
+        }
+      }
+    }
+
+    .no-concerts {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px;
+      color: #666;
+
+      mat-icon {
+        font-size: 48px;
+        width: 48px;
+        height: 48px;
+        margin-bottom: 16px;
+      }
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+}
+.logout-button {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  z-index: 100;
+  display: flex;
+}
+.logout-button {
+  background-color: #f44336;
+  color: white;
+  font-weight: bold;
+  border-radius: 4px;
+  padding: 8px 16px;
+  border: none;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #d32f2f;
+  }
+}
