@@ -10,6 +10,7 @@ import { Concert } from '../../models/concert';
 import { UserService } from '../../services/user.service';
 import { ConcertService } from '../../services/concert.service';
 import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
 
 @Component({
@@ -42,7 +43,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
   constructor(
     private userService: UserService,
     private concertService: ConcertService, 
-    private router: Router
+    private router: Router,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -107,8 +109,9 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.loadProfileData();
   }
   logout() {
-  localStorage.removeItem('user');
-  this.router.navigate(['/login']);
+    localStorage.removeItem('user');
+    this.authService.signOut()
+    this.router.navigate(['/login']);
 }
 
 }

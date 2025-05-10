@@ -37,7 +37,7 @@ export class AuthService {
   }
   
   signOut(): Promise<void> {
-    localStorage.setItem('isLoggedIn', 'false');
+    localStorage.removeItem('user');
     return signOut(this.auth).then(() => {
       this.router.navigateByUrl('/home');
     });
@@ -71,9 +71,10 @@ export class AuthService {
     return setDoc(userRef, userData);
   }
   
-  isLoggedIn(): Observable<FirebaseUser | null> {
-    return this.currentUser;
+  isLoggedIn(): boolean {
+    return !!localStorage.getItem('user');
   }
+
   
   updateLoginStatus(isLoggedIn: boolean): void {
     localStorage.setItem('isLoggedIn', isLoggedIn ? 'true' : 'false');
